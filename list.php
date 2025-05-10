@@ -8,13 +8,13 @@ if (isset($_GET['delete'])) {
     $deleteId = (int)$_GET['delete'];
     // $_SESSION['users'] = array_filter($_SESSION['users'], fn($u) => $u['id'] !== $deleteId);
     // $_SESSION['users'] = array_values($_SESSION['users']); // reset index
-    $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("DELETE FROM _users WHERE id = ?");
     $stmt->execute([$deleteId]);
-    header("Location: users.php");
+    header("Location: list.php");
     exit;
 }
 // Lấy danh sách user
-$stmt = $pdo->query("SELECT * FROM users ORDER BY id DESC");
+$stmt = $pdo->query("SELECT * FROM _users ORDER BY id DESC");
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // $users = $_SESSION['users'];

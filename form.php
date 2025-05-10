@@ -9,7 +9,7 @@ $email = "";
 // Nếu có ID, load dữ liệu để sửa
 // echo "id: " . htmlspecialchars($id) . "<br>";
 if ($id) {
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT * FROM _users WHERE id = ?");
     $stmt->execute([$id]);
     $user = $stmt->fetch();
     // var_dump($user); // hoặc print_r($user);
@@ -32,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     if ($name && $email) {
         if ($id) {
             // Cập nhật thông tin user
-            $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
+            $stmt = $pdo->prepare("UPDATE _users SET name = ?, email = ? WHERE id = ?");
             $stmt->execute([$name, $email, $id]);
         } else {
             // Thêm user mới
-            $stmt = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO _users (name, email) VALUES (?, ?)");
             $stmt->execute([$name, $email]);
         }
     

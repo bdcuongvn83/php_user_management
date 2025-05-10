@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         // $id = end($_SESSION['users'])['id'] + 1;
         // $_SESSION['users'][] = ['id' => $id, 'name' => $name, 'email' => $email];
         if ($name && $email) {
-            $stmt = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO _users (name, email) VALUES (?, ?)");
             $stmt->execute([$name, $email]);
         }
     }
@@ -42,13 +42,13 @@ if (isset($_GET['delete'])) {
     $deleteId = (int)$_GET['delete'];
     // $_SESSION['users'] = array_filter($_SESSION['users'], fn($u) => $u['id'] !== $deleteId);
     // $_SESSION['users'] = array_values($_SESSION['users']); // reset index
-    $stmt = $pdo->prepare("DELETE FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("DELETE FROM _users WHERE id = ?");
     $stmt->execute([$deleteId]);
     header("Location: users.php");
     exit;
 }
 // Lấy danh sách user
-$stmt = $pdo->query("SELECT * FROM users ORDER BY id DESC");
+$stmt = $pdo->query("SELECT * FROM _users ORDER BY id DESC");
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // $users = $_SESSION['users'];
